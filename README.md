@@ -1,91 +1,313 @@
-# Opti-Crop: ML-Powered Crop Recommendation & Soil Health Platform
+# OptiCrop: Smart Agricultural Production Optimization Engine
 
-Opti-Crop is an intelligent decision support system designed to help farmers, agricultural researchers, and extension offices optimize crop yields. Using historical soil-nutrient and meteorological datasets, it runs a 94%-accurate Logistic Regression model to recommend optimal crops based on N-P-K ratios, pH levels, temperature, humidity, and rainfall, alongside detailed organic and chemical soil correction procedures.
-
-This repository follows the **AI, ML, and GenAI Track Project Template** structure.
-
----
-
-## 📂 Repository Structure
-
-The project deliverables are organized into the following phases:
-
-### [1. Brainstorming & Ideation](file:///c:/Users/muram/Documents/AntiGravity/1.%20Brainstorming%20%26%20Ideation)
-Scoping user needs, defining problem statements, and mapping user empathy:
-- [Brainstorming & Idea Prioritization](file:///c:/Users/muram/Documents/AntiGravity/1.%20Brainstorming%20%26%20Ideation/Brainstorming%20%26%20Idea%20Prioritization.md) (and [PDF version](file:///c:/Users/muram/Documents/AntiGravity/1.%20Brainstorming%20%26%20Ideation/Brainstorming%20%26%20Idea%20Prioritization.pdf))
-- [Define Problem Statements](file:///c:/Users/muram/Documents/AntiGravity/1.%20Brainstorming%20%26%20Ideation/Define%20Problem%20Statements%20.md) (and [PDF version](file:///c:/Users/muram/Documents/AntiGravity/1.%20Brainstorming%20%26%20Ideation/Define%20Problem%20Statements%20.pdf))
-- [Empathy Map](file:///c:/Users/muram/Documents/AntiGravity/1.%20Brainstorming%20%26%20Ideation/Empathy%20Map.md) (and [PDF version](file:///c:/Users/muram/Documents/AntiGravity/1.%20Brainstorming%20%26%20Ideation/Empathy%20Map.pdf))
-
-### [2. Requirement Analysis](file:///c:/Users/muram/Documents/AntiGravity/2.%20Requirement%20Analysis)
-User journey analysis, system data flows, functional/non-functional criteria, and technology stacks:
-- [Customer Journey Map](file:///c:/Users/muram/Documents/AntiGravity/2.%20Requirement%20Analysis/Customer%20Journey%20Map.md) (and [PDF version](file:///c:/Users/muram/Documents/AntiGravity/2.%20Requirement%20Analysis/Customer%20Journey%20Map.pdf))
-- [Data Flow Diagram](file:///c:/Users/muram/Documents/AntiGravity/2.%20Requirement%20Analysis/Data%20Flow%20Diagram.md) (and [PDF version](file:///c:/Users/muram/Documents/AntiGravity/2.%20Requirement%20Analysis/Data%20Flow%20Diagram.pdf))
-- [Solution Requirements](file:///c:/Users/muram/Documents/AntiGravity/2.%20Requirement%20Analysis/Solution%20Requirements.md) (and [PDF version](file:///c:/Users/muram/Documents/AntiGravity/2.%20Requirement%20Analysis/Solution%20Requirements.pdf))
-- [Technology Stack](file:///c:/Users/muram/Documents/AntiGravity/2.%20Requirement%20Analysis/Technology%20Stack.md) (and [PDF version](file:///c:/Users/muram/Documents/AntiGravity/2.%20Requirement%20Analysis/Technology%20Stack.pdf))
-
-### [3. Project Design Phase](file:///c:/Users/muram/Documents/AntiGravity/3.%20Project%20Design%20Phase)
-System design, architectural design, database schemas, and product-market fit:
-- [Problem-Solution Fit](file:///c:/Users/muram/Documents/AntiGravity/3.%20Project%20Design%20Phase/Problem-Solution%20Fit.md) (and [PDF version](file:///c:/Users/muram/Documents/AntiGravity/3.%20Project%20Design%20Phase/Problem-Solution%20Fit.pdf))
-- [Proposed Solution Specifications](file:///c:/Users/muram/Documents/AntiGravity/3.%20Project%20Design%20Phase/Proposed%20Solution.md) (and [PDF version](file:///c:/Users/muram/Documents/AntiGravity/3.%20Project%20Design%20Phase/Proposed%20Solution.pdf))
-- [Solution Architecture](file:///c:/Users/muram/Documents/AntiGravity/3.%20Project%20Design%20Phase/Solution%20Architecture.md) (and [PDF version](file:///c:/Users/muram/Documents/AntiGravity/3.%20Project%20Design%20Phase/Solution%20Architecture.pdf))
-
-### [4. Project Planning Phase](file:///c:/Users/muram/Documents/AntiGravity/4.%20Project%20Planning%20Phase)
-Timelines, sprints, and milestones:
-- [Project Planning](file:///c:/Users/muram/Documents/AntiGravity/4.%20Project%20Planning%20Phase/Project%20Planning.md) (and [PDF version](file:///c:/Users/muram/Documents/AntiGravity/4.%20Project%20Planning%20Phase/Project%20Planning.pdf))
-
-### [5. Project Development Phase](file:///c:/Users/muram/Documents/AntiGravity/5.%20Project%20Development%20Phase)
-This directory contains the core source code of the web application along with development reviews:
-- **Code Reviews:**
-  - [Code-Layout, Readability and Reusability](file:///c:/Users/muram/Documents/AntiGravity/5.%20Project%20Development%20Phase/Code-Layout,%20Readability%20and%20Reusability.md) (and [PDF version](file:///c:/Users/muram/Documents/AntiGravity/5.%20Project%20Development%20Phase/Code-Layout,%20Readability%20and%20Reusability.pdf))
-  - [Coding & Solution Highlights](file:///c:/Users/muram/Documents/AntiGravity/5.%20Project%20Development%20Phase/Coding%20%26%20Solution.md) (and [PDF version](file:///c:/Users/muram/Documents/AntiGravity/5.%20Project%20Development%20Phase/Coding%20%26%20Solution.pdf))
-  - [No. of Functional Features Included](file:///c:/Users/muram/Documents/AntiGravity/5.%20Project%20Development%20Phase/No.%20of%20Functional%20Features%20Included%20in%20the%20Solution.md) (and [PDF version](file:///c:/Users/muram/Documents/AntiGravity/5.%20Project%20Development%20Phase/No.%20of%20Functional%20Features%20Included%20in%20the%20Solution.pdf))
-- **Application Executables:**
-  - `app.py`: Main Flask server entry point.
-  - `database.py`: Schema constructor and seeding utilities.
-  - `train_model.py`: Model fitting, cleaning, and analytics graphics generator.
-  - `Crop_recommendation.csv`: Primary agricultural data table.
-  - `static/` & `templates/`: Interface assets and dynamic HTML templates.
-
-### [6. Project Testing](file:///c:/Users/muram/Documents/AntiGravity/6.Project%20Testing)
-Machine Learning validation stats and route performance testing:
-- [Performance Testing Reports](file:///c:/Users/muram/Documents/AntiGravity/6.Project%20Testing/Performance%20Testing.md) (and [PDF version](file:///c:/Users/muram/Documents/AntiGravity/6.Project%20Testing/Performance%20Testing.pdf))
-
-### [7. Project Documentation](file:///c:/Users/muram/Documents/AntiGravity/7.Project%20Documentation)
-Installation instructions and comprehensive guide:
-- [Project Executable Files Installation Guide](file:///c:/Users/muram/Documents/AntiGravity/7.Project%20Documentation/Project%20Executable%20Files.md) (and [PDF version](file:///c:/Users/muram/Documents/AntiGravity/7.Project%20Documentation/Project%20Executable%20Files.pdf))
-- [Sample Project Documentation](file:///c:/Users/muram/Documents/AntiGravity/7.Project%20Documentation/Sample%20Project%20Documentation.md) (and [PDF version](file:///c:/Users/muram/Documents/AntiGravity/7.Project%20Documentation/Sample%20Project%20Documentation.pdf))
-
-### [8. Project Demonstration](file:///c:/Users/muram/Documents/AntiGravity/8.Project%20Demonstration)
-Demonstration scripts, organizational divisions, risk mitigation, and scaling guides:
-- [Communication & Slide Layout](file:///c:/Users/muram/Documents/AntiGravity/8.Project%20Demonstration/Communication.md) (and [PDF version](file:///c:/Users/muram/Documents/AntiGravity/8.Project%20Demonstration/Communication.pdf))
-- [Demonstration of Proposed Features](file:///c:/Users/muram/Documents/AntiGravity/8.Project%20Demonstration/Demonstration%20of%20Proposed%20Features.md) (and [PDF version](file:///c:/Users/muram/Documents/AntiGravity/8.Project%20Demonstration/Demonstration%20of%20Proposed%20Features.pdf))
-- [Project Demo Planning Checklist](file:///c:/Users/muram/Documents/AntiGravity/8.Project%20Demonstration/Project%20Demo%20Planning.md) (and [PDF version](file:///c:/Users/muram/Documents/AntiGravity/8.Project%20Demonstration/Project%20Demo%20Planning.pdf))
-- [Scalability & Future Scope Roadmap](file:///c:/Users/muram/Documents/AntiGravity/8.Project%20Demonstration/Scalability%20%26%20Future%20Plan.md) (and [PDF version](file:///c:/Users/muram/Documents/AntiGravity/8.Project%20Demonstration/Scalability%20%26%20Future%20Plan.pdf))
-- [Team Involvement in Demonstration](file:///c:/Users/muram/Documents/AntiGravity/8.Project%20Demonstration/Team%20Involvement%20in%20Demonstration.md) (and [PDF version](file:///c:/Users/muram/Documents/AntiGravity/8.Project%20Demonstration/Team%20Involvement%20in%20Demonstration.pdf))
+**Live Demo:** [OptiCrop Web Application](LINK)  
+**GitHub Repository:** [https://github.com/rolladharani/OptiCrop](https://github.com/rolladharani/OptiCrop)
 
 ---
 
-## 🚀 Quick Start Guide
+## Overview
 
-To run the application locally:
+OptiCrop is a **Smart Agricultural Production Optimization Engine** designed to provide data-driven insights for agricultural decision-making.
 
-1. **Install Dependencies:**
-   ```bash
-   pip install -r "5. Project Development Phase/requirements.txt"
-   ```
+The system analyzes important soil and environmental factors such as **Nitrogen (N), Phosphorous (P), Potassium (K), temperature, humidity, pH, and rainfall** to recommend suitable crops and assess crop suitability under given conditions.
 
-2. **Initialize Database:**
-   ```bash
-   python "5. Project Development Phase/database.py"
-   ```
+The project combines **data preprocessing, machine learning, clustering, data visualization, and a Flask-based web application** to transform agricultural data into useful recommendations and insights.
 
-3. **Train Model & Generate Charts:**
-   ```bash
-   python "5. Project Development Phase/train_model.py"
-   ```
+---
 
-4. **Start Application Server:**
-   ```bash
-   python "5. Project Development Phase/app.py"
-   ```
-   Open `http://127.0.0.1:5000/` in your browser.
+## Problem Statement
+
+Agricultural production depends significantly on soil quality and environmental conditions. Selecting a suitable crop without considering these factors can affect productivity and resource utilization.
+
+OptiCrop addresses this problem by analyzing agricultural and environmental parameters and providing data-driven recommendations to support better crop selection and agricultural planning.
+
+---
+
+## Objectives
+
+| No. | Objective |
+|-----|-----------|
+| 1 | Recommend suitable crops based on soil and environmental conditions. |
+| 2 | Evaluate the suitability of a selected crop under given conditions. |
+| 3 | Analyze crop-environment relationships using agricultural data. |
+| 4 | Apply machine learning techniques to agricultural data. |
+| 5 | Provide a web-based platform for agricultural decision support. |
+| 6 | Support better production decisions and resource efficiency. |
+
+---
+
+## Key Features
+
+| Feature | Description |
+|---------|-------------|
+| Crop Recommendation | Recommends a suitable crop using soil and environmental parameters. |
+| Crop Suitability Assessment | Evaluates whether conditions are suitable for a selected crop. |
+| Data Preprocessing | Processes the agricultural dataset and handles outliers before training. |
+| Machine Learning | Uses Logistic Regression for crop classification. |
+| K-Means Clustering | Analyzes groups of similar agricultural conditions. |
+| Data Analysis | Performs correlation and feature distribution analysis. |
+| Visualization | Generates analytical graphs including correlation and clustering visualizations. |
+| Web Application | Provides an interactive interface using Flask. |
+| User Authentication | Provides registration and login functionality. |
+
+---
+
+## Use Cases
+
+### 1. Smart Crop Recommendation for Farmers
+
+A farmer enters soil and environmental information such as Nitrogen, Phosphorous, Potassium, temperature, humidity, pH, and rainfall.
+
+OptiCrop analyzes the provided parameters and recommends a suitable crop based on the trained model.
+
+### 2. Crop Suitability and Environmental Assessment
+
+A user can evaluate whether the current soil and environmental conditions are suitable for a particular crop.
+
+The system analyzes the provided conditions and provides a crop suitability assessment.
+
+### 3. Agricultural Research and Policy Planning
+
+Agricultural researchers and stakeholders can use the system to analyze crop-environment relationships and identify patterns that can support data-driven agricultural planning.
+
+---
+
+## Input Parameters
+
+| Parameter | Description |
+|-----------|-------------|
+| Nitrogen (N) | Soil nitrogen level |
+| Phosphorous (P) | Soil phosphorous level |
+| Potassium (K) | Soil potassium level |
+| Temperature | Environmental temperature |
+| Humidity | Environmental humidity |
+| pH | Soil acidity/alkalinity level |
+| Rainfall | Rainfall measurement |
+
+---
+
+## Machine Learning
+
+### Data Preprocessing
+
+The agricultural dataset is processed before model training. The project performs preprocessing and handles outliers to prepare the data for machine learning.
+
+### Logistic Regression
+
+OptiCrop uses **Logistic Regression** for multi-class crop classification. The trained model is saved as:
+
+    model.pkl
+
+### K-Means Clustering
+
+The project uses **K-Means Clustering** to analyze groups of similar agricultural conditions.
+
+An **Elbow Method** analysis is also generated as part of the clustering process.
+
+### Generated Model Files
+
+| File | Purpose |
+|------|---------|
+| `model.pkl` | Trained crop classification model |
+| `crop_ranges.pkl` | Crop parameter range information |
+| `cluster_insights.pkl` | Clustering-related insights |
+
+---
+
+## Dataset
+
+The project uses the following agricultural dataset:
+
+    Crop_recommendation.csv
+
+The dataset contains soil and environmental parameters used for crop recommendation and model training.
+
+| Dataset Attribute | Description |
+|-------------------|-------------|
+| N | Nitrogen |
+| P | Phosphorous |
+| K | Potassium |
+| Temperature | Temperature condition |
+| Humidity | Humidity condition |
+| pH | Soil pH |
+| Rainfall | Rainfall condition |
+| Label | Crop category |
+
+---
+
+## Technology Stack
+
+| Category | Technologies |
+|----------|--------------|
+| Programming Language | Python 3.11 |
+| Web Framework | Flask |
+| Machine Learning | Scikit-learn |
+| Data Processing | Pandas, NumPy |
+| Scientific Computing | SciPy |
+| Data Visualization | Matplotlib, Seaborn |
+| Database | SQLite |
+| Frontend | HTML, CSS, JavaScript |
+| Version Control | Git, GitHub |
+| Deployment | Render |
+
+---
+
+## System Architecture
+
+    User
+      |
+      v
+    Web Interface
+      |
+      v
+    Flask Application
+      |
+      +---------------------------+
+      |                           |
+      v                           v
+    Input Processing          Database
+      |
+      v
+    Machine Learning Model
+      |
+      +---------------------------+
+      |                           |
+      v                           v
+    Crop Recommendation     Suitability Assessment
+      |
+      v
+    Agricultural Insights
+
+---
+
+## Project Workflow
+
+1. User provides soil and environmental parameters.
+2. The Flask application receives the input.
+3. The input is processed according to the project's data-processing workflow.
+4. The trained machine learning model analyzes the parameters.
+5. The application provides crop recommendations or suitability results.
+6. Additional agricultural and clustering insights can be viewed through the application.
+
+---
+
+## Project Structure
+
+    OptiCrop/
+    │
+    ├── 1. Brainstorming & Ideation/
+    │
+    ├── 2. Requirement Analysis/
+    │
+    ├── 3. Project Design Phase/
+    │
+    ├── 4. Project Planning Phase/
+    │
+    ├── 5. Project Development Phase/
+    │   ├── static/
+    │   ├── templates/
+    │   ├── app.py
+    │   ├── database.py
+    │   ├── train_model.py
+    │   ├── Crop_recommendation.csv
+    │   ├── model.pkl
+    │   ├── crop_ranges.pkl
+    │   ├── cluster_insights.pkl
+    │   ├── requirements.txt
+    │   └── runtime.txt
+    │
+    ├── 6. Project Testing/
+    │
+    ├── 7. Project Documentation/
+    │
+    └── 8. Project Demonstration/
+
+---
+
+## Local Installation
+
+### Prerequisites
+
+| Requirement | Specification |
+|-------------|---------------|
+| Operating System | Windows / Linux / macOS |
+| Python | Python 3.x |
+| Recommended Python Version | Python 3.11 |
+| IDE | Visual Studio Code or equivalent |
+| Internet Connection | Required for installing dependencies |
+
+### 1. Clone the Repository
+
+    git clone https://github.com/rolladharani/OptiCrop.git
+    cd OptiCrop
+
+### 2. Install Dependencies
+
+    pip install -r "5. Project Development Phase/requirements.txt"
+
+For Windows with Python 3.11:
+
+    py -3.11 -m pip install -r "5. Project Development Phase/requirements.txt"
+
+### 3. Initialize the Database
+
+    py -3.11 "5. Project Development Phase/database.py"
+
+### 4. Train the Model
+
+    py -3.11 "5. Project Development Phase/train_model.py"
+
+### 5. Start the Application
+
+    py -3.11 "5. Project Development Phase/app.py"
+
+The application will run locally at:
+
+    http://127.0.0.1:5000/
+
+---
+
+## Application Modules
+
+| Module | Description |
+|--------|-------------|
+| Home | Main entry point of the OptiCrop application. |
+| Find Your Crop | Accepts agricultural parameters and provides crop recommendations. |
+| Suitability | Evaluates the suitability of a selected crop. |
+| Insights | Provides agricultural data and machine learning insights. |
+| Register | Provides user registration functionality. |
+| Login | Provides user authentication functionality. |
+
+---
+
+## Model Training Result
+
+The model training process successfully completed the following stages:
+
+| Training Stage | Status |
+|----------------|--------|
+| Dataset Loading | Completed |
+| Data Preprocessing | Completed |
+| Outlier Handling | Completed |
+| K-Means Analysis | Completed |
+| Correlation Analysis | Completed |
+| Feature Distribution Analysis | Completed |
+| Logistic Regression Training | Completed |
+| Model Generation | Completed |
+| Classification Accuracy | 96% |
+
+---
+
+## Project Documentation
+
+Detailed project deliverables are available in:
+
+    7. Project Documentation/
+
+The documentation includes:
+
+| Document | Description |
+|----------|-------------|
+| Project Executable Files | Installation and execution guide |
+| Sample Project Documentation | System documentation and technical guide |
+
