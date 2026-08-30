@@ -1,0 +1,240 @@
+{% extends "layout.html" %}
+
+{% block title %}OptiCrop – Smart Agricultural Production Optimization Engine{% endblock %}
+
+{% block content %}
+
+<!-- ═══════════════════════════════ HERO ═══════════════════════════════ -->
+<section class="hero" id="hero-section">
+  <div class="container">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center;">
+
+      <!-- Left: Copy -->
+      <div>
+        <div class="hero-badge">
+          <i class="fa fa-leaf"></i>
+          AI-Powered Precision Agriculture
+        </div>
+
+        <h1 class="hero-title">
+          Grow Smarter<br>with <span class="highlight">Data-Driven</span><br>Crop Intelligence
+        </h1>
+
+        <p class="hero-subtitle">
+          OptiCrop analyzes your soil nutrients and local climate conditions — Nitrogen, Phosphorous, Potassium, temperature, humidity, pH, and rainfall — to recommend the ideal crop for maximum yield and resource efficiency.
+        </p>
+
+        <div class="hero-actions">
+          <a href="{{ url_for('findyourcrop') }}" class="btn btn-primary btn-lg" id="hero-cta-predict">
+            <i class="fa fa-seedling"></i> Find Your Crop
+          </a>
+          <a href="{{ url_for('suitability') }}" class="btn btn-outline btn-lg" id="hero-cta-assess">
+            <i class="fa fa-chart-bar"></i> Assess Suitability
+          </a>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat-item">
+            <div class="stat-value">22</div>
+            <div class="stat-label">Crop Types Covered</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">96%</div>
+            <div class="stat-label">Prediction Accuracy</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">2200+</div>
+            <div class="stat-label">Training Records</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Visual -->
+      <div class="hero-visual" style="display:flex; justify-content:center;">
+        <div style="position:relative;">
+          <div class="central-icon">🌾</div>
+
+          <div class="floating-badge badge-1">
+            <i class="fa fa-circle-check"></i> 96% Accuracy
+          </div>
+          <div class="floating-badge badge-2">
+            <i class="fa fa-droplet"></i> Rainfall Analysis
+          </div>
+          <div class="floating-badge badge-3">
+            <i class="fa fa-temperature-half"></i> Climate Aware
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ HOW IT WORKS / FEATURES ═══════════════════ -->
+<section class="section" id="features-section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">How It Works</div>
+      <h2 class="section-title">Three Steps to Optimal <span class="text-gradient">Agricultural Output</span></h2>
+      <p class="section-subtitle">From raw soil data to an intelligent crop recommendation in seconds.</p>
+    </div>
+
+    <div class="grid grid-3">
+      <div class="feature-card animate-fade-up">
+        <div class="feature-icon icon-green"><i class="fa fa-flask" style="color:var(--accent-green);"></i></div>
+        <h3>Input Soil & Climate Data</h3>
+        <p>Enter your soil's Nitrogen, Phosphorous, and Potassium levels along with local temperature, humidity, pH, and rainfall values through our easy-to-use form.</p>
+        <div class="mt-3" style="font-size:0.82rem; color:var(--accent-green); font-weight:600;">Step 01 →</div>
+      </div>
+
+      <div class="feature-card animate-fade-up-delay-1">
+        <div class="feature-icon icon-teal"><i class="fa fa-brain" style="color:var(--accent-teal);"></i></div>
+        <h3>AI Analysis & Modeling</h3>
+        <p>Our Logistic Regression model trained on 2,200+ agricultural records analyzes your data using multi-parameter pattern recognition to identify the best crop match.</p>
+        <div class="mt-3" style="font-size:0.82rem; color:var(--accent-teal); font-weight:600;">Step 02 →</div>
+      </div>
+
+      <div class="feature-card animate-fade-up-delay-2">
+        <div class="feature-icon icon-amber"><i class="fa fa-seedling" style="color:var(--accent-amber);"></i></div>
+        <h3>Receive Crop Recommendation</h3>
+        <p>Get a detailed recommendation with the predicted crop, water requirements, fertilizer advice, and customized soil amendment tips — all tailored to your conditions.</p>
+        <div class="mt-3" style="font-size:0.82rem; color:var(--accent-amber); font-weight:600;">Step 03 ✓</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ SCENARIOS ═══════════════════ -->
+<section class="section" id="scenarios-section" style="background: linear-gradient(180deg, rgba(82,196,26,0.02) 0%, transparent 100%);">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Use Cases</div>
+      <h2 class="section-title">Built for Every <span class="text-gradient">Agricultural Stakeholder</span></h2>
+      <p class="section-subtitle">OptiCrop serves farmers, agricultural researchers, and policymakers alike.</p>
+    </div>
+
+    <div class="grid grid-3">
+
+      <!-- Scenario 1 -->
+      <div class="scenario-card">
+        <span class="scenario-num">01</span>
+        <div style="display:flex; align-items:center; gap:0.75rem;">
+          <div class="feature-icon icon-green" style="margin-bottom:0;">
+            <i class="fa fa-tractor" style="color:var(--accent-green);"></i>
+          </div>
+          <div>
+            <div style="font-size:0.72rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px;">Scenario 1</div>
+            <h3 style="font-size:1.05rem;">Smart Crop Recommendation</h3>
+          </div>
+        </div>
+        <p style="font-size:0.88rem; color:var(--text-secondary);">A farmer enters soil and climate data. The system analyzes the parameters and recommends the most suitable crop for maximum yield and farming efficiency.</p>
+        <a href="{{ url_for('findyourcrop') }}" class="btn btn-ghost btn-sm" id="scenario1-cta">
+          <i class="fa fa-arrow-right"></i> Try Now
+        </a>
+      </div>
+
+      <!-- Scenario 2 -->
+      <div class="scenario-card">
+        <span class="scenario-num">02</span>
+        <div style="display:flex; align-items:center; gap:0.75rem;">
+          <div class="feature-icon icon-teal" style="margin-bottom:0;">
+            <i class="fa fa-magnifying-glass-chart" style="color:var(--accent-teal);"></i>
+          </div>
+          <div>
+            <div style="font-size:0.72rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px;">Scenario 2</div>
+            <h3 style="font-size:1.05rem;">Suitability Assessment</h3>
+          </div>
+        </div>
+        <p style="font-size:0.88rem; color:var(--text-secondary);">A user selects a specific crop and enters local conditions. The platform evaluates environmental compatibility and provides a detailed crop suitability report.</p>
+        <a href="{{ url_for('suitability') }}" class="btn btn-ghost btn-sm" id="scenario2-cta">
+          <i class="fa fa-arrow-right"></i> Assess Crop
+        </a>
+      </div>
+
+      <!-- Scenario 3 -->
+      <div class="scenario-card">
+        <span class="scenario-num">03</span>
+        <div style="display:flex; align-items:center; gap:0.75rem;">
+          <div class="feature-icon icon-purple" style="margin-bottom:0;">
+            <i class="fa fa-microscope" style="color:var(--accent-purple);"></i>
+          </div>
+          <div>
+            <div style="font-size:0.72rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px;">Scenario 3</div>
+            <h3 style="font-size:1.05rem;">Research & Policy Planning</h3>
+          </div>
+        </div>
+        <p style="font-size:0.88rem; color:var(--text-secondary);">Researchers and policymakers explore crop–environment relationships through our analytics dashboard, featuring correlation matrices, cluster groupings, and feature distributions.</p>
+        <a href="{{ url_for('insights') }}" class="btn btn-ghost btn-sm" id="scenario3-cta">
+          <i class="fa fa-arrow-right"></i> View Insights
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ PARAMETER OVERVIEW ═══════════════════ -->
+<section class="section" id="parameters-section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Environmental Parameters</div>
+      <h2 class="section-title">Seven Key Factors That <span class="text-gradient">Drive Every Prediction</span></h2>
+    </div>
+
+    <div class="grid grid-4">
+      {% set params = [
+        ('fa-n', 'Nitrogen (N)', 'Essential macronutrient for leaf growth and chlorophyll formation.', '#52c41a'),
+        ('fa-p', 'Phosphorous (P)', 'Drives root development, flowering, and energy transfer in plants.', '#10b981'),
+        ('fa-k', 'Potassium (K)', 'Regulates water uptake, protein synthesis, and disease resistance.', '#06b6d4'),
+        ('fa-temperature-half', 'Temperature', 'Controls enzyme activity, germination rate and harvest timing.', '#f59e0b'),
+        ('fa-droplet', 'Humidity', 'Influences transpiration, stomatal function and fungal risk.', '#8b5cf6'),
+        ('fa-flask', 'Soil pH', 'Determines nutrient availability and soil microbial activity.', '#ef4444'),
+        ('fa-cloud-rain', 'Rainfall', 'Primary water source — affects irrigation planning and yields.', '#06b6d4')
+      ] %}
+
+      {% for icon, name, desc, color in params %}
+      <div class="card" style="padding:1.25rem;">
+        <div style="font-size:1.5rem; margin-bottom:0.6rem;">
+          <i class="fa {{ icon }}" style="color:{{ color }};"></i>
+        </div>
+        <div style="font-weight:700; font-size:0.9rem; margin-bottom:0.3rem; color:var(--text-bright);">{{ name }}</div>
+        <div style="font-size:0.8rem; color:var(--text-secondary); line-height:1.55;">{{ desc }}</div>
+      </div>
+      {% endfor %}
+
+      <!-- Crop Label card -->
+      <div class="card" style="padding:1.25rem; border-color:rgba(82,196,26,0.25);">
+        <div style="font-size:1.5rem; margin-bottom:0.6rem;">🌾</div>
+        <div style="font-weight:700; font-size:0.9rem; margin-bottom:0.3rem; color:var(--accent-green);">Crop Output</div>
+        <div style="font-size:0.8rem; color:var(--text-secondary); line-height:1.55;">22 distinct crops predicted — from rice to coffee, apple to cotton.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ CTA BANNER ═══════════════════ -->
+<section class="section" id="cta-section">
+  <div class="container">
+    <div class="card" style="background: linear-gradient(135deg, rgba(82,196,26,0.12), rgba(6,182,212,0.08)); border-color:rgba(82,196,26,0.3); text-align:center; padding:4rem 2rem;">
+      <div style="font-size:3.5rem; margin-bottom:1rem;">🚜</div>
+      <h2 style="font-size:2.2rem; font-weight:800; letter-spacing:-1px; margin-bottom:1rem;">
+        Ready to Optimize Your <span class="text-gradient">Harvest?</span>
+      </h2>
+      <p style="color:var(--text-secondary); max-width:500px; margin:0 auto 2rem;">
+        Enter your soil conditions and let OptiCrop's AI guide you toward the most productive crop for your land and season.
+      </p>
+      <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+        <a href="{{ url_for('findyourcrop') }}" class="btn btn-primary btn-lg" id="cta-main-predict">
+          <i class="fa fa-seedling"></i> Get Crop Recommendation
+        </a>
+        {% if not session.get('user_id') %}
+        <a href="{{ url_for('register') }}" class="btn btn-outline btn-lg" id="cta-register">
+          <i class="fa fa-user-plus"></i> Create Free Account
+        </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,332 @@
+{% extends "layout.html" %}
+{% block title %}FindYourCrop – AI Crop Recommendation | OptiCrop{% endblock %}
+
+{% block content %}
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="container">
+    <div class="section-tag">Scenario 1</div>
+    <h1>🌱 Find <span class="text-gradient">Your Crop</span></h1>
+    <p>Enter your soil and environmental conditions to receive an AI-powered crop recommendation.</p>
+  </div>
+</div>
+
+<div class="container" style="padding-bottom:4rem;">
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:2.5rem; align-items:start;">
+
+    <!-- ─── LEFT: INPUT FORM ─── -->
+    <div>
+      <div class="card" style="padding:2rem;">
+        <h2 style="font-size:1.3rem; margin-bottom:0.3rem;">Soil & Climate Parameters</h2>
+        <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:1.75rem;">Adjust sliders or type values directly. All fields are required.</p>
+
+        <form id="predictionForm">
+
+          <!-- Nitrogen -->
+          <div class="form-group">
+            <label class="form-label" for="nitrogen">🧪 Nitrogen (N) <span style="color:var(--text-muted); font-weight:400; text-transform:none;">— mg/kg</span></label>
+            <div class="form-range-wrapper">
+              <input type="range" class="form-range" id="nitrogen-range" min="0" max="140" step="1" value="90" oninput="syncInput('nitrogen', this.value)">
+              <input type="number" class="form-control" id="nitrogen" name="nitrogen" value="90" min="0" max="140" step="0.1" oninput="syncRange('nitrogen', this.value)" style="width:80px; padding:0.5rem; text-align:center;">
+            </div>
+          </div>
+
+          <!-- Phosphorous -->
+          <div class="form-group">
+            <label class="form-label" for="phosphorous">🧬 Phosphorous (P) <span style="color:var(--text-muted); font-weight:400; text-transform:none;">— mg/kg</span></label>
+            <div class="form-range-wrapper">
+              <input type="range" class="form-range" id="phosphorous-range" min="5" max="145" step="1" value="42" oninput="syncInput('phosphorous', this.value)">
+              <input type="number" class="form-control" id="phosphorous" name="phosphorous" value="42" min="5" max="145" step="0.1" oninput="syncRange('phosphorous', this.value)" style="width:80px; padding:0.5rem; text-align:center;">
+            </div>
+          </div>
+
+          <!-- Potassium -->
+          <div class="form-group">
+            <label class="form-label" for="potassium">⚗️ Potassium (K) <span style="color:var(--text-muted); font-weight:400; text-transform:none;">— mg/kg</span></label>
+            <div class="form-range-wrapper">
+              <input type="range" class="form-range" id="potassium-range" min="5" max="205" step="1" value="43" oninput="syncInput('potassium', this.value)">
+              <input type="number" class="form-control" id="potassium" name="potassium" value="43" min="5" max="205" step="0.1" oninput="syncRange('potassium', this.value)" style="width:80px; padding:0.5rem; text-align:center;">
+            </div>
+          </div>
+
+          <!-- Temperature -->
+          <div class="form-group">
+            <label class="form-label" for="temperature">🌡️ Temperature <span style="color:var(--text-muted); font-weight:400; text-transform:none;">— °C</span></label>
+            <div class="form-range-wrapper">
+              <input type="range" class="form-range" id="temperature-range" min="5" max="50" step="0.1" value="25" oninput="syncInput('temperature', this.value)">
+              <input type="number" class="form-control" id="temperature" name="temperature" value="25" min="5" max="50" step="0.1" oninput="syncRange('temperature', this.value)" style="width:80px; padding:0.5rem; text-align:center;">
+            </div>
+          </div>
+
+          <!-- Humidity -->
+          <div class="form-group">
+            <label class="form-label" for="humidity">💧 Humidity <span style="color:var(--text-muted); font-weight:400; text-transform:none;">— %</span></label>
+            <div class="form-range-wrapper">
+              <input type="range" class="form-range" id="humidity-range" min="10" max="100" step="0.1" value="80" oninput="syncInput('humidity', this.value)">
+              <input type="number" class="form-control" id="humidity" name="humidity" value="80" min="10" max="100" step="0.1" oninput="syncRange('humidity', this.value)" style="width:80px; padding:0.5rem; text-align:center;">
+            </div>
+          </div>
+
+          <!-- pH -->
+          <div class="form-group">
+            <label class="form-label" for="ph">🔬 Soil pH <span style="color:var(--text-muted); font-weight:400; text-transform:none;">— 0–14 scale</span></label>
+            <div class="form-range-wrapper">
+              <input type="range" class="form-range" id="ph-range" min="3" max="10" step="0.1" value="6.5" oninput="syncInput('ph', this.value)">
+              <input type="number" class="form-control" id="ph" name="ph" value="6.5" min="3" max="10" step="0.1" oninput="syncRange('ph', this.value)" style="width:80px; padding:0.5rem; text-align:center;">
+            </div>
+          </div>
+
+          <!-- Rainfall -->
+          <div class="form-group">
+            <label class="form-label" for="rainfall">🌧️ Rainfall <span style="color:var(--text-muted); font-weight:400; text-transform:none;">— mm</span></label>
+            <div class="form-range-wrapper">
+              <input type="range" class="form-range" id="rainfall-range" min="20" max="300" step="1" value="200" oninput="syncInput('rainfall', this.value)">
+              <input type="number" class="form-control" id="rainfall" name="rainfall" value="200" min="20" max="300" step="0.1" oninput="syncRange('rainfall', this.value)" style="width:80px; padding:0.5rem; text-align:center;">
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div style="display:flex; gap:0.75rem;">
+            <button type="submit" class="btn btn-primary" id="btn-predict" style="flex:1; justify-content:center;">
+              <i class="fa fa-seedling"></i> Predict Best Crop
+            </button>
+            <button type="button" class="btn btn-outline" id="btn-reset" onclick="resetForm()">
+              <i class="fa fa-rotate-left"></i> Reset
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Sample Presets -->
+      <div class="card mt-3" style="padding:1.25rem;">
+        <div style="font-size:0.78rem; color:var(--text-muted); font-weight:600; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:0.75rem;">Quick Load Presets</div>
+        <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+          <button class="btn btn-ghost btn-sm" onclick="loadPreset('rice')" id="preset-rice">🌾 Rice</button>
+          <button class="btn btn-ghost btn-sm" onclick="loadPreset('maize')" id="preset-maize">🌽 Maize</button>
+          <button class="btn btn-ghost btn-sm" onclick="loadPreset('coffee')" id="preset-coffee">☕ Coffee</button>
+          <button class="btn btn-ghost btn-sm" onclick="loadPreset('banana')" id="preset-banana">🍌 Banana</button>
+          <button class="btn btn-ghost btn-sm" onclick="loadPreset('cotton')" id="preset-cotton">🏵️ Cotton</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── RIGHT: RESULT PANEL ─── -->
+    <div id="resultSection">
+
+      <!-- Placeholder State -->
+      <div id="placeholderState">
+        <div class="card" style="padding:3rem; text-align:center; border-style:dashed;">
+          <div style="font-size:4rem; margin-bottom:1rem; opacity:0.4;">🌿</div>
+          <h3 style="color:var(--text-muted); font-size:1.1rem; margin-bottom:0.5rem;">Awaiting Your Input</h3>
+          <p style="font-size:0.85rem; color:var(--text-muted);">Fill in the soil and climate parameters on the left, then click "Predict Best Crop" to receive your recommendation.</p>
+        </div>
+      </div>
+
+      <!-- Loading State -->
+      <div id="loadingState" class="hidden">
+        <div class="card" style="padding:3rem; text-align:center;">
+          <div class="spinner" style="margin-bottom:1rem;"></div>
+          <h3 style="color:var(--text-secondary); font-size:1rem;">Analyzing Conditions...</h3>
+          <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0.3rem;">Our ML model is processing your parameters</p>
+        </div>
+      </div>
+
+      <!-- Result State -->
+      <div id="resultState" class="hidden result-container">
+
+        <!-- Main Result Card -->
+        <div class="result-hero">
+          <span class="crop-emoji" id="resultEmoji">🌾</span>
+          <div style="font-size:0.82rem; color:var(--text-secondary); font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:0.35rem;">Recommended Crop</div>
+          <div class="result-crop-name" id="resultCropName">RICE</div>
+          <div style="font-size:0.85rem; color:var(--text-secondary); margin-top:0.75rem;" id="resultDescription">Best suited for your current soil and climate conditions.</div>
+        </div>
+
+        <!-- Metric Grid -->
+        <div class="advice-grid mt-3" id="adviceGrid">
+          <!-- Populated via JS -->
+        </div>
+
+        <!-- Recommendations -->
+        <div class="card mt-3" id="recommendationsCard" style="padding:1.5rem;">
+          <h4 style="font-size:0.9rem; font-weight:700; margin-bottom:1rem; color:var(--text-bright);">
+            <i class="fa fa-lightbulb" style="color:var(--accent-amber);"></i> Farming Recommendations
+          </h4>
+          <div id="adviceList" style="display:flex; flex-direction:column; gap:0.6rem;"></div>
+        </div>
+
+        <!-- Parameter Echo -->
+        <div class="card mt-3" style="padding:1.5rem;">
+          <h4 style="font-size:0.9rem; font-weight:700; margin-bottom:1rem; color:var(--text-bright);">
+            <i class="fa fa-table" style="color:var(--accent-teal);"></i> Input Parameters Summary
+          </h4>
+          <table class="data-table" id="paramTable">
+            <thead>
+              <tr>
+                <th>Parameter</th>
+                <th>Value</th>
+                <th>Unit</th>
+              </tr>
+            </thead>
+            <tbody id="paramTableBody"></tbody>
+          </table>
+        </div>
+
+        <!-- Predict Again -->
+        <div class="mt-3">
+          <button class="btn btn-outline btn-sm" onclick="resetResult()" id="btn-predict-again">
+            <i class="fa fa-rotate-left"></i> Modify Parameters
+          </button>
+          <a href="{{ url_for('suitability') }}" class="btn btn-ghost btn-sm" id="btn-goto-suitability">
+            <i class="fa fa-magnifying-glass-chart"></i> Assess Suitability
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+/* ─── Sync sliders with inputs ─── */
+function syncInput(field, val) {
+  const numInput = document.getElementById(field);
+  numInput.value = parseFloat(val).toFixed(field === 'ph' ? 1 : 0);
+}
+
+function syncRange(field, val) {
+  const rangeInput = document.getElementById(field + '-range');
+  rangeInput.value = val;
+}
+
+/* ─── Preset data ─── */
+const presets = {
+  rice:   { nitrogen:90, phosphorous:42, potassium:43, temperature:20.9, humidity:82, ph:6.5, rainfall:203 },
+  maize:  { nitrogen:77, phosphorous:48, potassium:20, temperature:22.6, humidity:65, ph:6.2, rainfall:101 },
+  coffee: { nitrogen:101, phosphorous:28, potassium:29, temperature:25.6, humidity:58, ph:6.8, rainfall:150 },
+  banana: { nitrogen:100, phosphorous:82, potassium:50, temperature:27.4, humidity:80, ph:5.9, rainfall:105 },
+  cotton: { nitrogen:118, phosphorous:46, potassium:19, temperature:23.9, humidity:80, ph:6.9, rainfall:80 }
+};
+
+function loadPreset(cropKey) {
+  const data = presets[cropKey];
+  if (!data) return;
+  Object.entries(data).forEach(([field, val]) => {
+    const numInput = document.getElementById(field);
+    const rangeInput = document.getElementById(field + '-range');
+    if (numInput) numInput.value = val;
+    if (rangeInput) rangeInput.value = val;
+  });
+}
+
+/* ─── Reset form ─── */
+function resetForm() {
+  loadPreset('rice');
+  resetResult();
+}
+
+function resetResult() {
+  document.getElementById('placeholderState').classList.remove('hidden');
+  document.getElementById('loadingState').classList.add('hidden');
+  document.getElementById('resultState').classList.add('hidden');
+}
+
+/* ─── Crop emoji map ─── */
+const cropEmojis = {
+  rice:'🌾', maize:'🌽', chickpea:'🫘', kidneybeans:'🫘', pigeonpeas:'🌱',
+  mothbeans:'🌿', mungbean:'🌱', blackgram:'🫘', lentil:'🌿', pomegranate:'🍎',
+  banana:'🍌', mango:'🥭', grapes:'🍇', watermelon:'🍉', muskmelon:'🍈',
+  apple:'🍎', orange:'🍊', papaya:'🧡', coconut:'🥥', cotton:'🏵️',
+  jute:'🌾', coffee:'☕'
+};
+
+/* ─── Prediction form submit ─── */
+document.getElementById('predictionForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  document.getElementById('placeholderState').classList.add('hidden');
+  document.getElementById('resultState').classList.add('hidden');
+  document.getElementById('loadingState').classList.remove('hidden');
+
+  const formData = {
+    nitrogen: document.getElementById('nitrogen').value,
+    phosphorous: document.getElementById('phosphorous').value,
+    potassium: document.getElementById('potassium').value,
+    temperature: document.getElementById('temperature').value,
+    humidity: document.getElementById('humidity').value,
+    ph: document.getElementById('ph').value,
+    rainfall: document.getElementById('rainfall').value
+  };
+
+  try {
+    const response = await fetch('/predict', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData)
+    });
+
+    const data = await response.json();
+
+    if (data.error) {
+      alert('Error: ' + data.error);
+      resetResult();
+      return;
+    }
+
+    // Fill results
+    const cropKey = data.crop.toLowerCase();
+    document.getElementById('resultEmoji').textContent = cropEmojis[cropKey] || '🌱';
+    document.getElementById('resultCropName').textContent = data.crop;
+    document.getElementById('resultDescription').textContent =
+      `Best suited crop for your current soil & climate conditions.`;
+
+    // Advice grid
+    const adviceGrid = document.getElementById('adviceGrid');
+    adviceGrid.innerHTML = `
+      <div class="advice-item"><h4>💧 Water Requirement</h4><p>${data.water}</p></div>
+      <div class="advice-item"><h4>🌡️ Temperature</h4><p>${data.temperature}°C</p></div>
+      <div class="advice-item"><h4>💦 Humidity</h4><p>${data.humidity}%</p></div>
+      <div class="advice-item"><h4>🌧️ Rainfall</h4><p>${data.rainfall} mm</p></div>
+      <div class="advice-item"><h4>🔬 Soil pH</h4><p>${data.ph}</p></div>
+      <div class="advice-item"><h4>🧪 N–P–K</h4><p>${data.nitrogen} / ${data.phosphorous} / ${data.potassium}</p></div>
+    `;
+
+    // Advice list
+    const adviceList = document.getElementById('adviceList');
+    adviceList.innerHTML = data.advice.map(tip =>
+      `<div style="display:flex; align-items:flex-start; gap:0.5rem; font-size:0.85rem; color:var(--text-secondary);">
+         <i class="fa fa-circle-check" style="color:var(--accent-green); margin-top:2px; flex-shrink:0;"></i>
+         <span>${tip}</span>
+       </div>`
+    ).join('');
+
+    // Parameter table
+    const rows = [
+      ['Nitrogen (N)', data.nitrogen, 'mg/kg'],
+      ['Phosphorous (P)', data.phosphorous, 'mg/kg'],
+      ['Potassium (K)', data.potassium, 'mg/kg'],
+      ['Temperature', data.temperature, '°C'],
+      ['Humidity', data.humidity, '%'],
+      ['Soil pH', data.ph, 'pH unit'],
+      ['Rainfall', data.rainfall, 'mm']
+    ];
+    document.getElementById('paramTableBody').innerHTML = rows.map(([name, val, unit]) =>
+      `<tr><td style="color:var(--text-secondary);">${name}</td><td style="font-weight:600;">${val}</td><td style="color:var(--text-muted);">${unit}</td></tr>`
+    ).join('');
+
+    document.getElementById('loadingState').classList.add('hidden');
+    document.getElementById('resultState').classList.remove('hidden');
+
+  } catch (err) {
+    console.error(err);
+    alert('An error occurred. Please try again.');
+    resetResult();
+  }
+});
+</script>
+{% endblock %}

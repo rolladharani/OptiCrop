@@ -1,0 +1,191 @@
+{% extends "layout.html" %}
+{% block title %}About – OptiCrop Smart Agricultural Production Optimization Engine{% endblock %}
+
+{% block content %}
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="container">
+    <div class="section-tag">About OptiCrop</div>
+    <h1>Smart <span class="text-gradient">Agricultural Production</span> Optimization Engine</h1>
+    <p>Data-driven crop intelligence for farmers, researchers, and policymakers.</p>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Project Overview -->
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:center; margin-bottom:4rem;">
+    <div class="animate-fade-up">
+      <div class="section-tag" style="margin-bottom:1rem;">Project Overview</div>
+      <h2 style="font-size:2rem; font-weight:800; letter-spacing:-0.5px; margin-bottom:1rem;">
+        Revolutionizing Farming with <span class="text-gradient">AI Intelligence</span>
+      </h2>
+      <p style="color:var(--text-secondary); margin-bottom:1.25rem; line-height:1.8;">
+        The OptiCrop project aims to develop an advanced software system that utilizes data-driven insights to optimize agricultural production for different crops. By integrating key environmental factors, OptiCrop provides intelligent recommendations to farmers for maximizing yields and resource efficiency.
+      </p>
+      <p style="color:var(--text-secondary); line-height:1.8;">
+        The knowledge and insights gained through the OptiCrop project can be utilized by agricultural researchers, policymakers, and stakeholders to advance the understanding of crop–environment interactions and inform the development of evidence-based agricultural strategies.
+      </p>
+    </div>
+
+    <div class="animate-fade-up-delay-1">
+      <div class="card" style="background: linear-gradient(135deg, rgba(82,196,26,0.08), rgba(6,182,212,0.05)); border-color:rgba(82,196,26,0.2); padding:2.25rem;">
+        <div style="font-size:4rem; margin-bottom:1rem;">🌾</div>
+        <h3 style="margin-bottom:1rem; font-size:1.2rem;">Key Mission</h3>
+        <ul style="list-style:none; display:flex; flex-direction:column; gap:0.7rem;">
+          {% set missions = [
+            ('Maximize crop yield through precision farming', 'fa-chart-line', '#52c41a'),
+            ('Reduce resource wastage (water & fertilizer)', 'fa-leaf', '#10b981'),
+            ('Support sustainable agricultural practices', 'fa-recycle', '#06b6d4'),
+            ('Enable data-driven farming decisions', 'fa-brain', '#8b5cf6'),
+            ('Improve farmer profitability and income', 'fa-coins', '#f59e0b')
+          ] %}
+          {% for text, icon, color in missions %}
+          <li style="display:flex; align-items:center; gap:0.75rem; font-size:0.9rem; color:var(--text-secondary);">
+            <i class="fa {{ icon }}" style="color:{{ color }}; font-size:0.9rem; min-width:16px;"></i>
+            {{ text }}
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Parameters Analyzed -->
+  <div style="margin-bottom:4rem;">
+    <div class="section-header">
+      <div class="section-tag">Data Parameters</div>
+      <h2 class="section-title">Environmental Factors <span class="text-gradient">Analyzed by OptiCrop</span></h2>
+      <p class="section-subtitle">Seven key agricultural metrics form the foundation of every prediction.</p>
+    </div>
+
+    <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:1rem;">
+      {% set param_list = [
+        ('N – Nitrogen', 'Soil macronutrient ratio essential for vegetative growth', '🧪', '0 – 140'),
+        ('P – Phosphorous', 'Drives root development and energy transfer processes', '🧬', '5 – 145'),
+        ('K – Potassium', 'Regulates plant immunity, water uptake, and protein synthesis', '⚗️', '5 – 205'),
+        ('Temperature', 'Ambient temperature measured in degree Celsius', '🌡️', '8°C – 44°C'),
+        ('Humidity', 'Relative atmospheric humidity percentage', '💧', '14% – 100%'),
+        ('pH Value', 'Soil acidity or alkalinity measurement', '🔬', '3.5 – 9.9'),
+        ('Rainfall', 'Average annual rainfall in millimeters', '🌧️', '20 – 300 mm'),
+      ] %}
+      {% for name, desc, icon, rng in param_list %}
+      <div class="card" style="padding:1.5rem;">
+        <div style="font-size:2rem; margin-bottom:0.7rem;">{{ icon }}</div>
+        <div style="font-weight:700; font-size:0.92rem; color:var(--text-bright); margin-bottom:0.3rem;">{{ name }}</div>
+        <div style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:0.5rem; line-height:1.5;">{{ desc }}</div>
+        <div style="font-size:0.75rem; background:rgba(82,196,26,0.08); border:1px solid rgba(82,196,26,0.15); color:var(--accent-green); padding:0.2rem 0.6rem; border-radius:999px; display:inline-block; font-weight:600;">Range: {{ rng }}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ML Techniques -->
+  <div style="margin-bottom:4rem;">
+    <div class="section-header">
+      <div class="section-tag">Machine Learning</div>
+      <h2 class="section-title">AI Techniques <span class="text-gradient">Powering OptiCrop</span></h2>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card card-gradient animate-fade-up">
+        <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1.1rem;">
+          <div class="feature-icon icon-teal" style="margin-bottom:0;">
+            <i class="fa fa-circle-nodes" style="color:var(--accent-teal);"></i>
+          </div>
+          <h3>K-Means Clustering</h3>
+        </div>
+        <p style="font-size:0.88rem; color:var(--text-secondary); line-height:1.7;">
+          Applied to identify patterns and group similar agricultural conditions. The Elbow Method is used to determine the optimal number of clusters by analyzing WCSS values, revealing 4 distinct crop environmental groups.
+        </p>
+        <div class="mt-3">
+          <span class="cluster-tag">Unsupervised Learning</span>
+          <span class="cluster-tag">Pattern Recognition</span>
+          <span class="cluster-tag">Elbow Method</span>
+        </div>
+      </div>
+
+      <div class="card card-gradient animate-fade-up-delay-1">
+        <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1.1rem;">
+          <div class="feature-icon icon-green" style="margin-bottom:0;">
+            <i class="fa fa-chart-line" style="color:var(--accent-green);"></i>
+          </div>
+          <h3>Logistic Regression</h3>
+        </div>
+        <p style="font-size:0.88rem; color:var(--text-secondary); line-height:1.7;">
+          The primary classification algorithm trained on 2,062 preprocessed records to predict the most suitable crop from 22 categories. Achieves ~94–96% accuracy on held-out test data with comprehensive F1 scores.
+        </p>
+        <div class="mt-3">
+          <span class="cluster-tag">Supervised Learning</span>
+          <span class="cluster-tag">Multi-class Classification</span>
+          <span class="cluster-tag">96% Accuracy</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Social & Business Impact -->
+  <div style="margin-bottom:4rem;">
+    <div class="section-header">
+      <div class="section-tag">Impact</div>
+      <h2 class="section-title">Social & Business <span class="text-gradient">Impact of OptiCrop</span></h2>
+    </div>
+
+    <div class="grid grid-3">
+      {% set impacts = [
+        ('🌍', 'Environmental Sustainability', 'By optimizing fertilizer and water usage, OptiCrop reduces environmental damage, minimizes resource wastage, and supports ecological balance across agricultural regions.', '#52c41a'),
+        ('💰', 'Farmer Profitability', 'Accurate crop selection minimizes financial losses from unsuitable cultivation, directly improving the economic condition of rural farmers and agribusinesses.', '#f59e0b'),
+        ('📊', 'Policy & Research', 'Agricultural researchers and policymakers gain data-backed insights to create evidence-based farming strategies and national food security plans.', '#8b5cf6'),
+        ('🏭', 'Agribusiness Optimization', 'Supply chain planners and agro-companies can forecast crop availability, plan resource distribution, and reduce operational inefficiencies.', '#06b6d4'),
+        ('🍚', 'Food Security', 'Improved yield predictions and sustainable crop planning contribute to national food security and stable market supply of essential produce.', '#10b981'),
+        ('⚙️', 'Precision Agriculture', 'OptiCrop integrates ML into traditional farming, enabling the adoption of smart farming practices across diverse agricultural communities.', '#ef4444')
+      ] %}
+      {% for emoji, title, desc, color in impacts %}
+      <div class="feature-card">
+        <div style="font-size:2rem; margin-bottom:0.75rem;">{{ emoji }}</div>
+        <h3 style="color:{{ color }}; margin-bottom:0.5rem; font-size:1rem;">{{ title }}</h3>
+        <p style="font-size:0.85rem; color:var(--text-secondary); line-height:1.65;">{{ desc }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Tech Stack -->
+  <div style="margin-bottom:3rem;">
+    <div class="section-header">
+      <div class="section-tag">Technology Stack</div>
+      <h2 class="section-title">Built With <span class="text-gradient">Industry Tools</span></h2>
+    </div>
+
+    <div class="card" style="padding:2rem;">
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); gap:1.25rem;">
+        {% set tech = [
+          ('NumPy', 'Numerical Computing', '🔢'),
+          ('Pandas', 'Data Analysis', '📊'),
+          ('Scikit-learn', 'Machine Learning', '🤖'),
+          ('Matplotlib', 'Visualization', '📈'),
+          ('Seaborn', 'Statistical Plots', '🎨'),
+          ('Flask', 'Web Framework', '⚡'),
+          ('SQLite', 'Database', '🗄️'),
+          ('SciPy', 'Scientific Computing', '🔭'),
+        ] %}
+        {% for name, role, icon in tech %}
+        <div style="text-align:center; padding:1.25rem; background:var(--glass); border:1px solid var(--glass-border); border-radius:var(--radius-md); transition:all 0.3s ease;" onmouseover="this.style.borderColor='rgba(82,196,26,0.3)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)'">
+          <div style="font-size:1.8rem; margin-bottom:0.5rem;">{{ icon }}</div>
+          <div style="font-weight:700; font-size:0.88rem; color:var(--text-bright);">{{ name }}</div>
+          <div style="font-size:0.74rem; color:var(--text-muted); margin-top:0.2rem;">{{ role }}</div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

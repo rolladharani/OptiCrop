@@ -1,0 +1,300 @@
+{% extends "layout.html" %}
+{% block title %}Crop Suitability Assessment – OptiCrop{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+  <div class="container">
+    <div class="section-tag">Scenario 2</div>
+    <h1>📊 Crop <span class="text-gradient">Suitability Assessment</span></h1>
+    <p>Select a target crop and evaluate your current soil & climate conditions against its ideal growing parameters.</p>
+  </div>
+</div>
+
+<div class="container" style="padding-bottom:4rem;">
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:2.5rem; align-items:start;">
+
+    <!-- ─── LEFT: FORM ─── -->
+    <div>
+      <div class="card" style="padding:2rem;">
+        <h2 style="font-size:1.25rem; margin-bottom:0.3rem;">Evaluation Parameters</h2>
+        <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:1.75rem;">Choose a target crop and provide your local conditions below.</p>
+
+        <form id="suitabilityForm">
+
+          <!-- Crop Selector -->
+          <div class="form-group">
+            <label class="form-label" for="crop-select">🌾 Target Crop</label>
+            <select class="form-control" id="crop-select" name="crop_name" required>
+              <option value="" disabled selected>— Select a crop to assess —</option>
+              {% for crop in crops_list %}
+              <option value="{{ crop }}">{{ crop.capitalize() }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="divider"></div>
+
+          <!-- Nitrogen -->
+          <div class="form-group">
+            <label class="form-label" for="s-nitrogen">🧪 Nitrogen (N)</label>
+            <div class="form-range-wrapper">
+              <input type="range" class="form-range" id="s-nitrogen-range" min="0" max="140" step="1" value="60" oninput="sSyncInput('nitrogen', this.value)">
+              <input type="number" class="form-control" id="s-nitrogen" name="nitrogen" value="60" min="0" max="140" step="0.1" oninput="sSyncRange('nitrogen', this.value)" style="width:80px; padding:0.5rem; text-align:center;">
+            </div>
+          </div>
+
+          <!-- Phosphorous -->
+          <div class="form-group">
+            <label class="form-label" for="s-phosphorous">🧬 Phosphorous (P)</label>
+            <div class="form-range-wrapper">
+              <input type="range" class="form-range" id="s-phosphorous-range" min="5" max="145" step="1" value="50" oninput="sSyncInput('phosphorous', this.value)">
+              <input type="number" class="form-control" id="s-phosphorous" name="phosphorous" value="50" min="5" max="145" step="0.1" oninput="sSyncRange('phosphorous', this.value)" style="width:80px; padding:0.5rem; text-align:center;">
+            </div>
+          </div>
+
+          <!-- Potassium -->
+          <div class="form-group">
+            <label class="form-label" for="s-potassium">⚗️ Potassium (K)</label>
+            <div class="form-range-wrapper">
+              <input type="range" class="form-range" id="s-potassium-range" min="5" max="205" step="1" value="50" oninput="sSyncInput('potassium', this.value)">
+              <input type="number" class="form-control" id="s-potassium" name="potassium" value="50" min="5" max="205" step="0.1" oninput="sSyncRange('potassium', this.value)" style="width:80px; padding:0.5rem; text-align:center;">
+            </div>
+          </div>
+
+          <!-- Temperature -->
+          <div class="form-group">
+            <label class="form-label" for="s-temperature">🌡️ Temperature (°C)</label>
+            <div class="form-range-wrapper">
+              <input type="range" class="form-range" id="s-temperature-range" min="5" max="50" step="0.1" value="25" oninput="sSyncInput('temperature', this.value)">
+              <input type="number" class="form-control" id="s-temperature" name="temperature" value="25" min="5" max="50" step="0.1" oninput="sSyncRange('temperature', this.value)" style="width:80px; padding:0.5rem; text-align:center;">
+            </div>
+          </div>
+
+          <!-- Humidity -->
+          <div class="form-group">
+            <label class="form-label" for="s-humidity">💧 Humidity (%)</label>
+            <div class="form-range-wrapper">
+              <input type="range" class="form-range" id="s-humidity-range" min="10" max="100" step="0.1" value="65" oninput="sSyncInput('humidity', this.value)">
+              <input type="number" class="form-control" id="s-humidity" name="humidity" value="65" min="10" max="100" step="0.1" oninput="sSyncRange('humidity', this.value)" style="width:80px; padding:0.5rem; text-align:center;">
+            </div>
+          </div>
+
+          <!-- pH -->
+          <div class="form-group">
+            <label class="form-label" for="s-ph">🔬 Soil pH</label>
+            <div class="form-range-wrapper">
+              <input type="range" class="form-range" id="s-ph-range" min="3" max="10" step="0.1" value="6.5" oninput="sSyncInput('ph', this.value)">
+              <input type="number" class="form-control" id="s-ph" name="ph" value="6.5" min="3" max="10" step="0.1" oninput="sSyncRange('ph', this.value)" style="width:80px; padding:0.5rem; text-align:center;">
+            </div>
+          </div>
+
+          <!-- Rainfall -->
+          <div class="form-group">
+            <label class="form-label" for="s-rainfall">🌧️ Rainfall (mm)</label>
+            <div class="form-range-wrapper">
+              <input type="range" class="form-range" id="s-rainfall-range" min="20" max="300" step="1" value="100" oninput="sSyncInput('rainfall', this.value)">
+              <input type="number" class="form-control" id="s-rainfall" name="rainfall" value="100" min="20" max="300" step="0.1" oninput="sSyncRange('rainfall', this.value)" style="width:80px; padding:0.5rem; text-align:center;">
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <button type="submit" class="btn btn-primary w-full" id="btn-assess" style="justify-content:center;">
+            <i class="fa fa-magnifying-glass-chart"></i> Evaluate Suitability
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- ─── RIGHT: RESULTS ─── -->
+    <div id="suitabilityResultSection">
+
+      <!-- Placeholder -->
+      <div id="sPlaceholder">
+        <div class="card" style="padding:3rem; text-align:center; border-style:dashed;">
+          <div style="font-size:4rem; margin-bottom:1rem; opacity:0.4;">📊</div>
+          <h3 style="color:var(--text-muted); font-size:1.1rem; margin-bottom:0.5rem;">Select a Crop & Enter Conditions</h3>
+          <p style="font-size:0.85rem; color:var(--text-muted);">Choose a target crop, fill in your soil data, and click "Evaluate Suitability" to see how well your conditions match.</p>
+        </div>
+
+        <!-- Info Cards -->
+        <div class="grid grid-2 mt-3">
+          <div class="card" style="padding:1.25rem; text-align:center;">
+            <div style="font-size:2rem; margin-bottom:0.5rem;">🌡️</div>
+            <div style="font-weight:700; font-size:0.88rem;">Climate Analysis</div>
+            <div style="font-size:0.78rem; color:var(--text-secondary); margin-top:0.25rem;">Temperature & humidity compatibility</div>
+          </div>
+          <div class="card" style="padding:1.25rem; text-align:center;">
+            <div style="font-size:2rem; margin-bottom:0.5rem;">🧪</div>
+            <div style="font-weight:700; font-size:0.88rem;">Soil Nutrient Check</div>
+            <div style="font-size:0.78rem; color:var(--text-secondary); margin-top:0.25rem;">N–P–K levels vs. ideal range</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Loading -->
+      <div id="sLoading" class="hidden">
+        <div class="card" style="padding:3rem; text-align:center;">
+          <div class="spinner" style="margin-bottom:1rem;"></div>
+          <h3 style="color:var(--text-secondary); font-size:1rem;">Evaluating Compatibility...</h3>
+        </div>
+      </div>
+
+      <!-- Result -->
+      <div id="sResult" class="hidden result-container">
+
+        <!-- Score Hero -->
+        <div class="card" id="sScoreCard" style="text-align:center; padding:2.25rem; position:relative; overflow:hidden;">
+          <div style="position:absolute; top:0; left:0; right:0; height:3px;" id="sScoreBar"></div>
+          <div style="font-size:0.78rem; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted); margin-bottom:0.5rem;">Suitability Score for</div>
+          <div class="result-crop-name" id="sCropName">RICE</div>
+          <div style="font-size:0.8rem; color:var(--text-muted); margin-bottom:1.25rem;" id="sCropMeta">Fruit crop • Summer season</div>
+
+          <!-- Score Circle -->
+          <div class="suitability-score" style="margin:0 auto 1.25rem;">
+            <svg width="160" height="160" viewBox="0 0 160 160">
+              <circle cx="80" cy="80" r="60" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="12"/>
+              <circle cx="80" cy="80" r="60" fill="none" stroke="url(#scoreGrad)" stroke-width="12"
+                      stroke-dasharray="377" stroke-dashoffset="377" stroke-linecap="round"
+                      id="scoreCircle" style="transition: stroke-dashoffset 1.2s ease;"/>
+              <defs>
+                <linearGradient id="scoreGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#52c41a"/>
+                  <stop offset="100%" stop-color="#06b6d4"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <div class="score-text">
+              <div class="score-number" id="sScoreNumber">--</div>
+              <div class="score-label">/ 100</div>
+            </div>
+          </div>
+
+          <div style="font-size:1rem; font-weight:700;" id="sPotentialLabel">Evaluating...</div>
+        </div>
+
+        <!-- Advice Card -->
+        <div class="card mt-3" id="sAdviceCard" style="padding:1.5rem;">
+          <h4 style="font-size:0.88rem; font-weight:700; margin-bottom:0.75rem; color:var(--text-bright);">
+            <i class="fa fa-circle-info" style="color:var(--accent-teal);"></i> Environmental Assessment
+          </h4>
+          <p style="font-size:0.87rem; color:var(--text-secondary); line-height:1.65;" id="sAdviceText"></p>
+        </div>
+
+        <!-- Metric Breakdown -->
+        <div class="card mt-3" style="padding:1.5rem;">
+          <h4 style="font-size:0.88rem; font-weight:700; margin-bottom:1rem; color:var(--text-bright);">
+            <i class="fa fa-sliders" style="color:var(--accent-green);"></i> Parameter Breakdown
+          </h4>
+          <div id="sMetricsList"></div>
+        </div>
+
+        <!-- Retry button -->
+        <div class="mt-3">
+          <button class="btn btn-outline btn-sm" onclick="resetSuitability()" id="btn-reassess">
+            <i class="fa fa-rotate-left"></i> Reassess
+          </button>
+          <a href="{{ url_for('findyourcrop') }}" class="btn btn-ghost btn-sm" id="btn-goto-predict">
+            <i class="fa fa-seedling"></i> Get Crop Recommendation
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+function sSyncInput(field, val) {
+  document.getElementById('s-' + field).value = parseFloat(val).toFixed(field === 'ph' ? 1 : 0);
+}
+function sSyncRange(field, val) {
+  document.getElementById('s-' + field + '-range').value = val;
+}
+
+function resetSuitability() {
+  document.getElementById('sPlaceholder').classList.remove('hidden');
+  document.getElementById('sLoading').classList.add('hidden');
+  document.getElementById('sResult').classList.add('hidden');
+}
+
+const metricLabels = {
+  nitrogen:'🧪 Nitrogen (N)', phosphorous:'🧬 Phosphorous (P)', potassium:'⚗️ Potassium (K)',
+  temperature:'🌡️ Temperature', humidity:'💧 Humidity', ph:'🔬 Soil pH', rainfall:'🌧️ Rainfall'
+};
+
+document.getElementById('suitabilityForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  document.getElementById('sPlaceholder').classList.add('hidden');
+  document.getElementById('sResult').classList.add('hidden');
+  document.getElementById('sLoading').classList.remove('hidden');
+
+  const formData = new FormData(this);
+
+  try {
+    const response = await fetch('/evaluate_suitability', { method:'POST', body: formData });
+    const data = await response.json();
+
+    if (data.error) {
+      alert(data.error);
+      resetSuitability();
+      return;
+    }
+
+    // Populate score card
+    document.getElementById('sCropName').textContent = data.crop_name;
+    document.getElementById('sCropMeta').textContent = `${data.crop_type} crop • ${data.season} season`;
+    document.getElementById('sScoreNumber').textContent = data.score;
+    document.getElementById('sPotentialLabel').textContent = data.potential;
+
+    // Score circle animation
+    const circumference = 377;
+    const offset = circumference - (data.score / 100) * circumference;
+    setTimeout(() => {
+      document.getElementById('scoreCircle').style.strokeDashoffset = offset;
+    }, 100);
+
+    // Score color
+    let color = '#52c41a';
+    if (data.score < 65) color = '#ef4444';
+    else if (data.score < 85) color = '#f59e0b';
+    document.getElementById('sPotentialLabel').style.color = color;
+    document.getElementById('sScoreBar').style.background = `linear-gradient(90deg, ${color}, #06b6d4)`;
+
+    // Advice
+    document.getElementById('sAdviceText').textContent = data.advice;
+
+    // Metrics
+    const metricsList = document.getElementById('sMetricsList');
+    metricsList.innerHTML = Object.entries(data.metrics).map(([key, info]) => {
+      const statusClass = info.status === 'Optimal' ? 'status-optimal' : 'status-sub';
+      return `
+        <div class="metric-row">
+          <div>
+            <div class="metric-name">${metricLabels[key] || key}</div>
+            <div style="font-size:0.72rem; color:var(--text-muted); margin-top:2px;">${info.feedback}</div>
+          </div>
+          <div class="metric-bar"><div class="metric-bar-fill" style="width:${info.score}%;"></div></div>
+          <div>
+            <div class="metric-value">${info.value}</div>
+            <div><span class="status-badge ${statusClass}">${info.status}</span></div>
+          </div>
+        </div>`;
+    }).join('');
+
+    document.getElementById('sLoading').classList.add('hidden');
+    document.getElementById('sResult').classList.remove('hidden');
+
+  } catch(err) {
+    console.error(err);
+    alert('Error evaluating suitability. Please try again.');
+    resetSuitability();
+  }
+});
+</script>
+{% endblock %}

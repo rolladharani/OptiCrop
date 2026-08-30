@@ -1,0 +1,244 @@
+{% extends "layout.html" %}
+{% block title %}Research Insights & Analytics – OptiCrop{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+  <div class="container">
+    <div class="section-tag">Scenario 3</div>
+    <h1>🔬 Research <span class="text-gradient">Insights & Analytics</span></h1>
+    <p>Agricultural research dashboard for policymakers, researchers, and agribusiness planners.</p>
+  </div>
+</div>
+
+<div class="container" style="padding-bottom:4rem;">
+
+  <!-- ─── KPI CARDS ─── -->
+  <div class="grid grid-4 mb-4">
+    <div class="stat-card">
+      <div class="stat-card-value">2,200</div>
+      <div class="stat-card-label">Training Records</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-value">22</div>
+      <div class="stat-card-label">Crop Categories</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-value">{{ total_submissions }}</div>
+      <div class="stat-card-label">System Predictions</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-value">{{ total_users }}</div>
+      <div class="stat-card-label">Registered Users</div>
+    </div>
+  </div>
+
+  <!-- ─── VISUALIZATION CHARTS ─── -->
+  <div class="section-header" style="margin-bottom:2rem; text-align:left;">
+    <div class="section-tag">ML Analysis</div>
+    <h2 class="section-title" style="font-size:1.8rem;">Data Visualizations</h2>
+  </div>
+
+  <div class="grid grid-2 mb-4">
+
+    <!-- Elbow Graph -->
+    <div class="chart-wrapper">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem;">
+        <div>
+          <h3 style="font-size:1rem; margin-bottom:0.25rem;">K-Means Elbow Graph</h3>
+          <p style="font-size:0.8rem; color:var(--text-muted);">Within-Cluster Sum of Squares (WCSS) vs. number of clusters</p>
+        </div>
+        <span class="status-badge status-optimal">KMeans</span>
+      </div>
+      <img src="{{ url_for('static', filename='images/elbow_graph.png') }}" alt="KMeans Elbow Graph" loading="lazy">
+      <div style="font-size:0.78rem; color:var(--text-secondary); margin-top:0.75rem; line-height:1.55;">
+        The elbow point indicates the optimal number of clusters for grouping similar agricultural conditions. The sharp change in slope at cluster 4 suggests that 4 distinct environmental crop groups exist in the dataset.
+      </div>
+    </div>
+
+    <!-- Correlation Heatmap -->
+    <div class="chart-wrapper">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem;">
+        <div>
+          <h3 style="font-size:1rem; margin-bottom:0.25rem;">Correlation Heatmap</h3>
+          <p style="font-size:0.8rem; color:var(--text-muted);">Relationships between soil and climate parameters</p>
+        </div>
+        <span class="status-badge status-optimal">Seaborn</span>
+      </div>
+      <img src="{{ url_for('static', filename='images/correlation_heatmap.png') }}" alt="Correlation Heatmap" loading="lazy">
+      <div style="font-size:0.78rem; color:var(--text-secondary); margin-top:0.75rem; line-height:1.55;">
+        The heatmap reveals correlation strength between agricultural parameters. Notably, Potassium (K) and Phosphorous (P) show moderate positive correlation, reflecting their joint role in plant metabolic processes.
+      </div>
+    </div>
+  </div>
+
+  <!-- Feature Distributions -->
+  <div class="chart-wrapper mb-4">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem;">
+      <div>
+        <h3 style="font-size:1rem; margin-bottom:0.25rem;">Feature Distributions</h3>
+        <p style="font-size:0.8rem; color:var(--text-muted);">Univariate distribution of all 7 environmental parameters</p>
+      </div>
+      <span class="status-badge status-optimal">Matplotlib</span>
+    </div>
+    <img src="{{ url_for('static', filename='images/feature_distributions.png') }}" alt="Feature Distributions" loading="lazy">
+    <div style="font-size:0.78rem; color:var(--text-secondary); margin-top:0.75rem; line-height:1.55;">
+      Histograms with KDE overlays reveal the spread and concentration of each parameter. Humidity and rainfall exhibit bimodal distributions, indicating distinct dry and wet agricultural zones in the dataset.
+    </div>
+  </div>
+
+  <!-- ─── K-MEANS CLUSTER INSIGHTS ─── -->
+  <div class="section-header" style="margin-bottom:2rem; text-align:left;">
+    <div class="section-tag">Cluster Analysis</div>
+    <h2 class="section-title" style="font-size:1.8rem;">Agricultural Cluster Groups</h2>
+  </div>
+
+  {% if cluster_insights %}
+  <div class="grid grid-2 mb-4">
+    {% set cluster_names = ['Nutrient-Rich Tropical', 'Temperate Semi-Arid', 'High-Humidity Rainfed', 'Balanced Moderate'] %}
+    {% set cluster_icons = ['🌴', '🌾', '🌧️', '⚖️'] %}
+    {% set cluster_colors = ['#52c41a', '#06b6d4', '#8b5cf6', '#f59e0b'] %}
+
+    {% for cluster_id, crops in cluster_insights.items() %}
+    <div class="card card-gradient">
+      <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:1rem;">
+        <div class="feature-icon" style="margin-bottom:0; background:rgba({{ '82,196,26' if loop.index == 1 else '6,182,212' if loop.index == 2 else '139,92,246' if loop.index == 3 else '245,158,11' }}, 0.12); font-size:1.3rem;">
+          {{ cluster_icons[loop.index0] }}
+        </div>
+        <div>
+          <div style="font-size:0.7rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px;">Cluster {{ loop.index }}</div>
+          <div style="font-weight:700; font-size:0.95rem; color:var(--text-bright);">{{ cluster_names[loop.index0] }}</div>
+        </div>
+      </div>
+      <div style="display:flex; flex-wrap:wrap; gap:0.35rem;">
+        {% for crop in crops %}
+          <span class="cluster-tag">{{ crop.capitalize() }}</span>
+        {% endfor %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <!-- ─── RECENT PREDICTIONS ─── -->
+  <div class="section-header" style="margin-bottom:1.5rem; text-align:left;">
+    <div class="section-tag">Prediction History</div>
+    <h2 class="section-title" style="font-size:1.8rem;">Recent System Predictions</h2>
+  </div>
+
+  <div class="card mb-4" style="padding:0; overflow:hidden;">
+    {% if recent_predictions %}
+    <div style="overflow-x:auto;">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Date & Time</th>
+            <th>N</th>
+            <th>P</th>
+            <th>K</th>
+            <th>Temp (°C)</th>
+            <th>Humidity (%)</th>
+            <th>pH</th>
+            <th>Rainfall (mm)</th>
+            <th>Predicted Crop</th>
+            <th>Model</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for pred in recent_predictions %}
+          <tr>
+            <td style="color:var(--text-muted);">{{ pred['prediction_id'] }}</td>
+            <td style="color:var(--text-muted); font-size:0.8rem; white-space:nowrap;">{{ pred['prediction_date'][:16] }}</td>
+            <td>{{ pred['nitrogen'] }}</td>
+            <td>{{ pred['phosphorous'] }}</td>
+            <td>{{ pred['potassium'] }}</td>
+            <td>{{ '%.1f'|format(pred['temperature']) }}</td>
+            <td>{{ '%.1f'|format(pred['humidity']) }}</td>
+            <td>{{ '%.1f'|format(pred['ph']) }}</td>
+            <td>{{ '%.1f'|format(pred['rainfall']) }}</td>
+            <td>
+              <span style="font-weight:700; color:var(--accent-green);">
+                {{ pred['crop_name'].capitalize() if pred['crop_name'] else '—' }}
+              </span>
+            </td>
+            <td>
+              <span class="status-badge status-optimal" style="font-size:0.68rem;">
+                {{ pred['model_name'] or 'LR' }}
+              </span>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <div style="padding:3rem; text-align:center;">
+      <div style="font-size:3rem; margin-bottom:0.75rem; opacity:0.4;">📋</div>
+      <p style="color:var(--text-muted);">No predictions made yet. <a href="{{ url_for('findyourcrop') }}" style="color:var(--accent-green);">Make your first prediction →</a></p>
+    </div>
+    {% endif %}
+  </div>
+
+  <!-- ─── CROP PREDICTION FREQUENCY ─── -->
+  {% if crop_stats %}
+  <div class="section-header" style="margin-bottom:1.5rem; text-align:left;">
+    <div class="section-tag">Usage Statistics</div>
+    <h2 class="section-title" style="font-size:1.8rem;">Crop Prediction Frequency</h2>
+  </div>
+
+  <div class="card" style="padding:1.5rem;">
+    {% set max_count = crop_stats[0]['count'] if crop_stats else 1 %}
+    {% for row in crop_stats %}
+    <div style="display:flex; align-items:center; gap:1rem; margin-bottom:0.6rem;">
+      <div style="min-width:110px; font-size:0.85rem; font-weight:600; color:var(--text-bright);">
+        {{ row['crop_name'].capitalize() }}
+      </div>
+      <div style="flex:1; height:8px; background:rgba(255,255,255,0.06); border-radius:4px; overflow:hidden;">
+        <div style="width:{{ (row['count'] / max_count * 100)|int }}%; height:100%; background:var(--gradient-btn); border-radius:4px; transition: width 0.8s ease;"></div>
+      </div>
+      <div style="min-width:28px; font-size:0.8rem; color:var(--accent-green); font-weight:700; text-align:right;">{{ row['count'] }}</div>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <!-- ─── MODEL PERFORMANCE ─── -->
+  <div class="section-header" style="margin-bottom:1.5rem; text-align:left; margin-top:3rem;">
+    <div class="section-tag">Model Performance</div>
+    <h2 class="section-title" style="font-size:1.8rem;">Classification Metrics</h2>
+  </div>
+
+  <div class="grid grid-3 mb-4">
+    <div class="card card-gradient" style="text-align:center; padding:2rem;">
+      <div class="stat-card-value">96%</div>
+      <div class="stat-card-label">Overall Accuracy</div>
+      <div style="font-size:0.78rem; color:var(--text-muted); margin-top:0.5rem;">Logistic Regression (max_iter=200)</div>
+    </div>
+    <div class="card card-gradient" style="text-align:center; padding:2rem;">
+      <div class="stat-card-value">96%</div>
+      <div class="stat-card-label">Macro F1 Score</div>
+      <div style="font-size:0.78rem; color:var(--text-muted); margin-top:0.5rem;">Average across all 22 crop classes</div>
+    </div>
+    <div class="card card-gradient" style="text-align:center; padding:2rem;">
+      <div class="stat-card-value">413</div>
+      <div class="stat-card-label">Test Set Records</div>
+      <div style="font-size:0.78rem; color:var(--text-muted); margin-top:0.5rem;">20% held-out from 2,062 cleaned records</div>
+    </div>
+  </div>
+
+  <!-- Per-class crops with 100% accuracy callout -->
+  <div class="card" style="padding:1.5rem;">
+    <h4 style="font-size:0.9rem; font-weight:700; margin-bottom:1rem;">
+      <i class="fa fa-star" style="color:var(--accent-amber);"></i> Crops with 100% Prediction Accuracy
+    </h4>
+    <div style="display:flex; flex-wrap:wrap; gap:0.4rem;">
+      {% for crop in ['Apple', 'Banana', 'Chickpea', 'Coconut', 'Coffee', 'Grapes', 'Kidneybeans', 'Mango', 'Mungbean', 'Muskmelon', 'Orange', 'Papaya', 'Pomegranate', 'Watermelon'] %}
+      <span class="cluster-tag" style="background:rgba(245,158,11,0.08); border-color:rgba(245,158,11,0.2); color:var(--accent-amber);">{{ crop }}</span>
+      {% endfor %}
+    </div>
+    <p style="font-size:0.8rem; color:var(--text-muted); margin-top:0.75rem;">These crops have highly distinct environmental signatures in the training dataset, resulting in perfect classification.</p>
+  </div>
+
+</div>
+{% endblock %}

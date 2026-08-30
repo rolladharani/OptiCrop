@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+{% block title %}Register – OptiCrop{% endblock %}
+
+{% block content %}
+<div style="min-height:calc(100vh - var(--nav-height)); display:flex; align-items:center; justify-content:center; padding:3rem 1.5rem;">
+  <div style="width:100%; max-width:480px;">
+
+    <div class="text-center mb-4">
+      <div style="font-size:3rem; margin-bottom:0.5rem;">🌱</div>
+      <h1 style="font-size:1.9rem; font-weight:800; letter-spacing:-0.5px;">Create an Account</h1>
+      <p style="color:var(--text-secondary); font-size:0.9rem; margin-top:0.35rem;">Join OptiCrop to save and track your predictions</p>
+    </div>
+
+    <div class="card" style="padding:2.25rem;">
+      <form method="POST" action="{{ url_for('register') }}" id="registerForm">
+
+        <div class="grid grid-2" style="gap:1rem;">
+          <div class="form-group">
+            <label class="form-label" for="reg-username">Username</label>
+            <div class="input-icon-wrapper">
+              <i class="fa fa-user input-icon"></i>
+              <input type="text" class="form-control" id="reg-username" name="username" placeholder="Pick a username" required autocomplete="username">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="reg-role">Role</label>
+            <select class="form-control" id="reg-role" name="role">
+              <option value="Farmer">🌾 Farmer</option>
+              <option value="Researcher">🔬 Researcher</option>
+              <option value="Policymaker">🏛️ Policymaker</option>
+              <option value="Student">📚 Student</option>
+              <option value="Agribusiness">🏭 Agribusiness</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reg-email">Email Address</label>
+          <div class="input-icon-wrapper">
+            <i class="fa fa-envelope input-icon"></i>
+            <input type="email" class="form-control" id="reg-email" name="email" placeholder="Enter your email" required autocomplete="email">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reg-password">Password</label>
+          <div class="input-icon-wrapper">
+            <i class="fa fa-lock input-icon"></i>
+            <input type="password" class="form-control" id="reg-password" name="password" placeholder="Create a strong password" required autocomplete="new-password" minlength="6">
+          </div>
+          <div style="font-size:0.75rem; color:var(--text-muted); margin-top:0.35rem;">Minimum 6 characters</div>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-full mt-2" id="btn-register-submit" style="justify-content:center; padding:0.8rem;">
+          <i class="fa fa-user-plus"></i> Create Account
+        </button>
+      </form>
+
+      <div class="divider"></div>
+
+      <p class="text-center" style="font-size:0.88rem; color:var(--text-secondary);">
+        Already have an account?
+        <a href="{{ url_for('login') }}" style="color:var(--accent-green); font-weight:600;" id="link-to-login">Sign in here</a>
+      </p>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
