@@ -191,38 +191,6 @@ The dataset contains soil and environmental parameters used for crop recommendat
 
 ---
 
-## Project Structure
-
-    OptiCrop/
-    │
-    ├── 1. Brainstorming & Ideation/
-    │
-    ├── 2. Requirement Analysis/
-    │
-    ├── 3. Project Design Phase/
-    │
-    ├── 4. Project Planning Phase/
-    │
-    ├── 5. Project Development Phase/
-    │   ├── static/
-    │   ├── templates/
-    │   ├── app.py
-    │   ├── database.py
-    │   ├── train_model.py
-    │   ├── Crop_recommendation.csv
-    │   ├── model.pkl
-    │   ├── crop_ranges.pkl
-    │   ├── cluster_insights.pkl
-    │   ├── requirements.txt
-    │   └── runtime.txt
-    │
-    ├── 6. Project Testing/
-    │
-    ├── 7. Project Documentation/
-    │
-    └── 8. Project Demonstration/
-
----
 
 ## Local Installation
 
@@ -277,24 +245,6 @@ The application will run locally at:
 | Insights | Provides agricultural data and machine learning insights. |
 | Register | Provides user registration functionality. |
 | Login | Provides user authentication functionality. |
-
----
-
-## Model Training Result
-
-The model training process successfully completed the following stages:
-
-| Training Stage | Status |
-|----------------|--------|
-| Dataset Loading | Completed |
-| Data Preprocessing | Completed |
-| Outlier Handling | Completed |
-| K-Means Analysis | Completed |
-| Correlation Analysis | Completed |
-| Feature Distribution Analysis | Completed |
-| Logistic Regression Training | Completed |
-| Model Generation | Completed |
-| Classification Accuracy | 96% |
 
 ---
 
